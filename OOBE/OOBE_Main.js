@@ -54,6 +54,7 @@ app.post('/SetInternet', function (req, res) {
 app.post('/COMEdit', function (req, res) {
   COMEdit.COMEdit(req, res);
 });
+//RunModbus之後，啟動FileChange開始偵測Config資料夾內的json，依序抓取資料
 app.post('/RunModbus', function (req, res) {
   Data = {
     cat: [
@@ -103,6 +104,7 @@ function Socket(data) {
 var FileLen;
 var count = 0;
 
+//FileChange判斷特定資料夾路徑內的三種狀態(新增/修改/移除)，並針對其進行後續動作
 function FileChange(FolderPath) {
   var watcher = chokidar.watch(FolderPath, { ignored: /^\./, persistent: true });
 
@@ -110,6 +112,7 @@ function FileChange(FolderPath) {
 
     .on('add', function (path) {
       try {
+        //交由asyncRead去依序抓取config.json的內容，在傳給ReadModbusData去抓資料
         asyncRead(path).then((config) =>
           ReadModbusData(config).then(console.log('File: ', path, '\n', config)),
         );
@@ -167,10 +170,13 @@ function CreateTmpConfig(DeviceList, config) {
   DeviceList['communicationFormat'] = config.settings.communicationFormat;
   return DeviceList;
 }
-
+//ReadModbusData會先判斷這個config屬於RTUorTCP
+//再來建立連線，因為RTU無法同時多個連線，若需要非同步執行去抓取點位資料，則須建立client
+//在透過Client非同步的設定SlaveID，抓取資料
 async function ReadModbusData(config) {
   if (config.potocol == 'modbusRTU') {
     RTUPortDetect(config);
+    //建立client提供ReadRTU / ReadTCP去使用readholding register
     let client = await ModbusConnect.ConnectRTU(config.settings.hwPort, config.settings.baudRate);
     for (let i = 0; i < Object.keys(config.devList).length; i++) {
       let tmpConfig = CreateTmpConfig(config.devList[i], config);
@@ -221,6 +227,8 @@ function type(type) {
   }
   return numOfRegs;
 }
+//ReadData會判斷如果是RTU則需額外設定SlaveId，並在交由readHoldingRegister把資料撈出來
+//最後在由ModbusFormat.BufferConvert去轉成所想要的資料格式
 async function ReadData(client, tmpConfig, RTUorTCP) {
   for (let j = 0; j < Object.keys(tmpConfig.regList).length; j++) {
     let numOfRegs = type(tmpConfig.regList[j].type);
@@ -241,7 +249,7 @@ async function ReadData(client, tmpConfig, RTUorTCP) {
   }
   return tmpConfig;
 }
-
+//readRTU / TCP 用於分類接下來要讀出來的資料所要push的catlog類別
 async function readRTU(tmpConfig, client) {
   switch (tmpConfig.catlog) {
     case 'inverter':

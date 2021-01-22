@@ -4,6 +4,9 @@
 // on device number 1. and log the values to the console.位,regisers=暫存器數量,DataFormat=輸出的資料格式,IsBE=true/false Endian;
 //DataFormat格式:u16/u32/s16/s32/float/binary
 module.exports ={
+    //需要使用promise才能確保連線建立玩之後，才交給後續程式進行資料抓取
+    //回傳連線完成的client
+
     ConnectTCP(ip,port,uid){
         return new Promise((resolve,reject)=>{
             var ModbusTCP = require("modbus-serial");

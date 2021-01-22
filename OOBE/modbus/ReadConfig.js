@@ -16,6 +16,7 @@ module.exports ={
         else return false;
         
     },
+    //由於檔案讀取是非同步，所以要使用promise確保讀完資料才會resolve
     ReadPromise (path)  {
         var fs = require('fs');
         return new Promise((resolve,reject)=>{   
