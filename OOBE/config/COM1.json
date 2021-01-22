@@ -1,0 +1,33 @@
+{
+  "potocol": "modbusRTU",
+  "settings": {
+    "hwPort": "COM1",
+    "baudRate": 9600,
+    "communicationFormat": "N,8,1"
+  },
+  "devList": [
+    {
+      "devName": "COM1_inverter01",
+      "catlog": "inverter",
+      "slaveId": 27,
+      "regList": [
+        {
+          "displayName": "INVcurrentPower",
+          "funCode": 3,
+          "addr": 60218,
+          "scale": 1,
+          "unit": "w",
+          "type": "s32"
+        },
+        {
+          "displayName": "INVaccumaltedPower",
+          "funCode": 3,
+          "addr": 60220,
+          "scale": 1,
+          "unit": "kWh",
+          "type": "s32"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+	"potocol" : "modbusTCP",
+	"devList" : [
+		{
+			"devName" : "TCPinverter01",
+			"catlog" : "inverter",
+			"ip" : "192.168.8.203",
+			"ipPort" : 502,
+			"unitId" : 1,
+			"regList" : [
+				{
+					"displayName" : "currentPower",
+					"funCode" :3,
+					"addr" : 0,
+					"scale" : 1,
+					"unit" : "w",
+					"type" : "u32"
+				},
+				{
+					"displayName" : "accumaltedPower",
+					"funCode" :3,
+					"addr" : 2,
+					"scale" : 1,
+					"unit" : "kWh",
+					"type" : "binary"
+				},
+				{
+					"displayName" : "accumaltedPower",
+					"funCode" :3,
+					"addr" : 6,
+					"scale" : 1,
+					"unit" : "kWh",
+					"type" : "float"
+				}
+			]
+		},
+		{
+			"devName" : "TCPinverter02",
+			"catlog" : "battery",
+			"ip" : "192.168.8.203",
+			"ipPort" : 502,
+			"unitId" : 1,
+			"regList" : [
+				{
+					"displayName" : "currentPower",
+					"funCode" :3,
+					"addr" : 4,
+					"scale" : 1,
+					"unit" : "w",
+					"type" : "s32"
+				},
+				{
+					"displayName" : "accumaltedPower",
+					"funCode" :3,
+					"addr" : 9,
+					"scale" : 1,
+					"unit" : "kWh",
+					"type" : "u16"
+				}
+			]
+		}
+	]
+}

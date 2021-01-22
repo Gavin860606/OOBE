@@ -1,0 +1,56 @@
+{
+  "potocol": "modbusRTU",
+  "settings": {
+    "hwPort": "COM2",
+    "baudRate": 9600,
+    "communicationFormat": "N,8,1"
+  },
+  "devList": [
+    {
+      "devName": "COM2_inverter01",
+      "catlog": "inverter",
+      "slaveId": 2,
+      "regList": [
+        {
+          "displayName": "INVcurrentPower",
+          "funCode": 3,
+          "addr": 0,
+          "scale": 1,
+          "unit": "w",
+          "type": "u32"
+        },
+        {
+          "displayName": "INVaccumaltedPower",
+          "funCode": 3,
+          "addr": 4,
+          "scale": 1,
+          "unit": "kWh",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "devName": "COM2_inverter02",
+      "catlog": "battery",
+      "slaveId": 3,
+      "regList": [
+        {
+          "displayName": "batcurrentPower",
+          "funCode": 3,
+          "addr": 2,
+          "scale": 1,
+          "unit": "w",
+          "type": "s32"
+        },
+        {
+          "displayName": "bataccumaltedPower",
+          "funCode": 3,
+          "addr": 5,
+          "scale": 1,
+          "unit": "kWh",
+          "type": "s16"
+        }
+      ]
+    }
+  ]
+}

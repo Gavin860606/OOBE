@@ -1,0 +1,23 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "chokidar": "^3.4.3",
+    "curl": "^0.1.4",
+    "express": "^4.17.1",
+    "modbus-serial": "^8.0.1",
+    "ssh-exec": "^2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://ta-cloud@dev.azure.com/ta-cloud/OOBE/_git/OOBE"
+  },
+  "author": "",
+  "license": "ISC"
+}

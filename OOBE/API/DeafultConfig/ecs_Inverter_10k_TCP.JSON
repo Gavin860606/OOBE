@@ -1,0 +1,29 @@
+{
+	"modelName" : "ecs_Inverter_10k_TCP",
+	"potocol" : "modbusTCP",
+	"catlog" : "inv",
+	"setting" : {
+		"unitId" : null,
+		"ip" : null,
+		"port" : 502
+	},
+	"regList" : [
+		{
+			"diaplyName" : "currentPower",
+			"funCode" :3,
+			"addr" : 44190,
+			"unit" : "kW",
+			"scale" : 1,
+			"type" : "int16"
+		},
+		{
+			"diaplyName" : "accumulatedPower",
+"funCode" :3,
+			"addr" : 44194,
+			"unit" : "kW",
+			"scale" : 1,
+			"type" : "int16"
+		}
+	]
+}
+
