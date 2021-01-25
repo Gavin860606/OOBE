@@ -1,59 +1,16 @@
 const express = require('express');
 const app = express();
-const path = require('path');
 var fs = require('fs');
-var Modbus = require('modbus-serial');
-var AddDev = require('./API/DeviceAPI/AddDev_API');
-var DelDev = require('./API/DeviceAPI/DelDev_API ');
-var DelDevPort = require('./API/DeviceAPI/DelDeVPort_API');
-var GetDevPortList = require('./API/DeviceAPI/GetDevPortList_API');
-var GetDevPortSetting = require('./API/DeviceAPI/GetDevPortSetting_API');
-var GetModelConfig = require('./API/DeviceAPI/GetModelConfig_API');
-var setDevPort = require('./API/DeviceAPI/SetDevPortAPI');
-var TestAPI = require('./API/DeviceAPI/Test_API');
-var COMEdit = require('./API/DeviceAPI/COMEdit_API');
-var SetInternet = require('./API/NetworkAPI/SetStaticInternet');
 var bodyParser = require('body-parser');
 const { resolveSoa } = require('dns');
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
-// parse application/json
 app.use(bodyParser.json());
 app.listen(3000);
 
-app.post('/AddDev', function (req, res) {
-  AddDev.AddDev(req, res);
-});
-app.post('/DelDev', function (req, res) {
-  DelDev.DelDev(req, res);
-});
-app.post('/DelDevPort', function (req, res) {
-  DelDevPort.DelDevPort(req, res);
-});
-app.post('/RTU_GWPort', function (req, res) {
-  GetDevPortList.GetPortList(req, res);
-});
-app.post('/GetDevPortSetting', function (req, res) {
-  GetDevPortSetting.GetDevPort(req, res);
-});
-app.post('/GetModelConfig', function (req, res) {
-  GetModelConfig.GetModelConfig(req, res);
-});
-app.post('/COMSettings', function (req, res) {
-  setDevPort.SetDevPort(req, res);
-});
-app.post('/TestTCP', function (req, res) {
-  TestAPI.TestTCPAPI(req, res);
-});
-app.post('/TestRTU', function (req, res) {
-  TestAPI.TestRTUAPI(req, res);
-});
-app.post('/SetInternet', function (req, res) {
-  SetInternet.SetInternet(req, res);
-});
-app.post('/COMEdit', function (req, res) {
-  COMEdit.COMEdit(req, res);
-});
+//API.routes
+var indexRouter = require('./API/routes');
+app.use(indexRouter);
+
 //RunModbus之後，啟動FileChange開始偵測Config資料夾內的json，依序抓取資料
 app.post('/RunModbus', function (req, res) {
   Data = {

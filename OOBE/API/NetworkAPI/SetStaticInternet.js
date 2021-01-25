@@ -1,12 +1,3 @@
-const express = require('express');
-const app = express();
-var fs = require('fs');
-var bodyParser = require('body-parser');
-const { resolveSoa } = require('dns');
-const path = require('path');
-const { exec } = require('child_process');
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 const {NodeSSH} = require('node-ssh')
 const ssh = new NodeSSH()
 
